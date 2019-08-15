@@ -3,6 +3,9 @@
 		{
 			"name": "zeroDeep",
 			"path": "."
+		},
+		{
+			"path": "/home/kyog02/test/deep-learning-from-scratch"
 		}
 	],
 	"remoteAuthority": "wsl+Ubuntu-18.04",

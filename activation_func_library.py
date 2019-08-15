@@ -36,11 +36,21 @@ def identity_function(x):
 # ★要素の大小関係が変わらないなら、出力層にソフトマックス適用しようがしまいが、判定結果に変わりはない。
 #  出力層にソフトマックスが必要な理由はニューラルネットワークの学習に関係がある(TODO)
 def softmax(x):
-    c = np.max(x)
-    exp_x = np.exp(x - c)
-    sum_exp_x = np.sum(exp_x)
-    y = exp_x / sum_exp_x
-    return y
+    # c = np.max(x)
+    # exp_x = np.exp(x - c)
+    # sum_exp_x = np.sum(exp_x)
+    # y = exp_x / sum_exp_x
+    # return y
+    # なぜ転置が必要？？⇒オーバーフロー対策で、入力信号の中から最大値を引く必要があるため
+    # 転置せず、np.max(axis=1)にすることでも、入力信号の最大値の取得はできるが、そのままだとxとの引き算ができなくなるため、扱いやすいよう転置している。
+    if x.ndim == 2: # 画像は2次元
+        x = x.T
+        x = x - np.max(x, axis=0)
+        y = np.exp(x) / np.sum(np.exp(x), axis=0)
+        return y.T
+
+    x = x - np.max(x) # オーバーフロー対策
+    return np.exp(x) / np.sum(np.exp(x))
 
 # ReLU関数
 def ReLU(x):
