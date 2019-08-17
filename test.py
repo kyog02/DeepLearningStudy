@@ -17,18 +17,34 @@ import matplotlib.pyplot as plt
 # print(x)
 # print(y)
 # print(b)
-
 # print(np.dot(x,y))
 
+# a = np.array([[5,1],[1,2],[3,4]])
+# print(a)
+# b = np.array([[1,2,3,4],[5,6,7,8]])
+# print(b)
+# print(np.dot(a,b))
+
+A = np.array([[1,2],[3,4],[5,6]])
+B = np.array([[2],[3]])
+C = np.dot(A,B)
+print(A)
+print(B)
+print(C)
+
+# np.random.randn()のテスト
+#print(np.random.randn(3)) # 3行のデータを生成
+#print(np.random.randn(5,3))# 5列3行のデータを生成
+
 # 次元数の確認
-print("次元数の確認：=============================S")
-a = np.array([[1, 2, 3], [4, 5, 6]])
-b = np.arange(6).reshape((3, 2))
-c = np.array([b, b])
-print("a:" + str(a))
-print("a.ndim:" + str(a.ndim))
-print("b:" + str(b))
-print("b.ndim:" + str(b.ndim))
-print("c:" + str(c))
-print("c.ndim:" + str(c.ndim))
-print("次元数の確認：=============================E")
+# print("次元数の確認：=============================S")
+# a = np.array([[1, 2, 3], [4, 5, 6]])
+# b = np.arange(6).reshape((3, 2))
+# c = np.array([b, b])
+# print("a:" + str(a))
+# print("a.ndim:" + str(a.ndim))
+# print("b:" + str(b))
+# print("b.ndim:" + str(b.ndim))
+# print("c:" + str(c))
+# print("c.ndim:" + str(c.ndim))
+# print("次元数の確認：=============================E")
