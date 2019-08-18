@@ -11,13 +11,25 @@ import activation_func_layers
 class TwoLayerNet:
     def __init__(self,input_size,hidden_size,output_size,
                  weight_init_std=0.01):
-        # 重みの初期化
+
+        # 重みの初期化(標準偏差使用)
+        # 重みの初期化を適切な設定方法で行わないと、活性化関数の出力結果が偏ってしまい、
+        # 学習(逆伝播)の際に、勾配消失が問題になってしまう。
+        # 各層でデータの広がりが均一に分布されていると、逆伝播の際も適切な値が流れることが期待できる。
         self.params = {}
-        self.params['W1'] = weight_init_std * np.random.randn(input_size,hidden_size)
+        #self.params['W1'] = weight_init_std * np.random.randn(input_size,hidden_size)
+        #self.params['W2'] = weight_init_std * np.random.randn(hidden_size,output_size)
         self.params['b1'] = np.zeros(hidden_size) # バイアスは最初は0
-        self.params['W2'] = weight_init_std * np.random.randn(hidden_size,output_size)
         self.params['b2'] = np.zeros(output_size) # バイアスは最初は0
         
+        # sigmoid関数/tanh関数などS字カーブの活性化関数使用時にはXavierの初期値を使用するのが一般的
+        #self.params['W1'] = np.random.randn(input_size,hidden_size) / np.sqrt(input_size)   # 平方根に渡すのはインプット側の層
+        #self.params['W2'] = np.random.randn(hidden_size,output_size) / np.sqrt(hidden_size) # 平方根に渡すのはインプット側の層
+
+        # ReLU関数の活性化関数使用時にはHeの初期値を使用するのが一般的
+        self.params['W1'] = np.random.randn(input_size,hidden_size) / np.sqrt(input_size) * np.sqrt(2)      # 平方根に渡すのはインプット側の層
+        self.params['W2'] = np.random.randn(hidden_size,output_size) / np.sqrt(hidden_size) * np.sqrt(2)    # 平方根に渡すのはインプット側の層
+
         # レイヤの生成
         self.layers = OrderedDict()
         self.layers['Affine1'] = activation_func_layers.AffineLayer(self.params['W1'],self.params['b1'])
