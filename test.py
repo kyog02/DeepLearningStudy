@@ -25,12 +25,12 @@ import matplotlib.pyplot as plt
 # print(b)
 # print(np.dot(a,b))
 
-A = np.array([[1,2],[3,4],[5,6]])
-B = np.array([[2],[3]])
-C = np.dot(A,B)
-print(A)
-print(B)
-print(C)
+# A = np.array([[1,2],[3,4],[5,6]])
+# B = np.array([[2],[3]])
+# C = np.dot(A,B)
+# print(A)
+# print(B)
+# print(C)
 
 # np.random.randn()のテスト
 #print(np.random.randn(3)) # 3行のデータを生成
@@ -48,3 +48,13 @@ print(C)
 # print("c:" + str(c))
 # print("c.ndim:" + str(c.ndim))
 # print("次元数の確認：=============================E")
+
+
+#CNN
+
+x = np.random.rand(10,1,28,28) # フィルタ数10個1チャンネル高さ28幅28の4次元配列
+y = x[0,0]
+
+a = [2,3]
+b = np.pad(a,[1,2],"constant")
+print(b)
