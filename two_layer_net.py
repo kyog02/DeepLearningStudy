@@ -60,7 +60,7 @@ class TwoLayerNet:
         weight_decay = self.__weight_decay()
         return self.lastLayer.forward(y,t) + weight_decay
 
-    # L2正則化。重み減衰
+    # L2正則化。(Ridge回帰) = 重み減衰
     # 過学習抑制のために使用する。そもそも過学習の原因は重みが大きい値をとることにより発生することが多々ある。
     # ラムダはハイパーパラメータの一つだが、こちらを大きく設定すればするほど、大きな重みを取ることに対して強い減衰を加えることになる。
     # (ラムダは正則化の効果の重み)
