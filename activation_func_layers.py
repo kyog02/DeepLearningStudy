@@ -11,11 +11,17 @@ from util import col2im
 import activation_func_library
 import loss_func_library
 
+# ReLUは、影響が少ないパラメータを切り捨てるレイヤのイメージ
+# ReLUレイヤは回路における「スイッチ」のように機能する。
+# 順伝播時に電流が流れていれば、スイッチをONにして、電流が流れてなければスイッチをOFFにする。
+# 逆伝播時には、順伝播時にスイッチをONにしておけば電流がそのまま流れ、OFFであれば電流は流れない。
 class ReluLayer:
     def __init__(self):
         self.mask = None
 
     # ReLU関数
+    # 入力値が0より大きければそのまま次の層に値を渡す。
+    # 入力値が0より小さければ、値を0にして次の層へ渡す。
     # y = max(0,x)
     def forward(self,x):
         # xが0より小さい要素はTrue、xが0より大きい要素はFalseを返す。
@@ -24,8 +30,9 @@ class ReluLayer:
         out[self.mask] = 0  # True(0以下)のところを0に書き換える。Falseの箇所はそのまま。
         return out
 
-    # 逆伝播の使い方わからぬな。。
-    # ReLU関数の微分
+    # ReLU関数の微分(順伝播とほとんど同じ)
+    # 順伝播時の入力であるxが0より大きければ、逆伝播は値をそのまま下流に流す。
+    # 順伝播時にxが0以下であれば、逆伝播では下流への信号はそこでストップする(0を返す)
     # dx = if(x > 0){1}
     #      elseif(x <= 0){0}
     def backward(self,dout):
@@ -46,10 +53,11 @@ class SigmoidLayer:
         return y
 
     # シグモイド関数の微分
+    # 順伝播時の出力結果をself.yとして保持しておいて、逆伝播時に使用する。
     # y : シグモイド関数の出力結果
     # dx = (1 - y) * y
     def backward(self,dout):
-        dx = dout * (self.y * (1 - self.y))
+        dx = dout * ((1 - self.y) * self.y)
         return dx
 
 
